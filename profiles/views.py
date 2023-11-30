@@ -663,7 +663,7 @@ class ArtistViewSet(viewsets.ModelViewSet):
     ]
     filterset_fields = ["skill", "languages", "location"]
     skill = Filter(name="skill", lookup_type="in")
-    language = Filter(name="languages", lookup_type="in")
+    language = Filter(name="languages", lookup_type="in") 
 
     search_fields = ["name", "location__name", "skill__name", "languages__name"]
     ordering_fields = "__all__"

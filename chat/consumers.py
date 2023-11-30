@@ -13,8 +13,10 @@ from profiles.models import *
 
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
+        print(self.scope)
         await self.get_token(self.scope)
         user = self.scope['user']
+        print(self.scope['user'])
         if isinstance(user, AnonymousUser):
             raise DenyConnection("Unauthorized")
         # Get current user id to dynamically manage security of creating private rooms
@@ -47,8 +49,10 @@ class ChatConsumer(AsyncWebsocketConsumer):
             pass
 
 
+
     async def receive(self, text_data=None, bytes_data=None):
         data = json.loads(text_data)
+        print(f"data is {data}")
         message = data['message']
         toggle = data['toggle']
         await self.save_message(sender=self.client, message=message, thread_name=self.room_group_name)
